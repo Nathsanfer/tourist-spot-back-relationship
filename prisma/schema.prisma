@@ -13,7 +13,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model TouristSpot {
+model TouristSpot { 
   id       Int    @id @default(autoincrement())
   name     String @unique
   region   String
