@@ -4,475 +4,208 @@ const prisma = new PrismaClient();
 async function main() {
   console.log("Iniciando o seed...");
 
-  // Código opcional para limpar o banco de dados antes de inserir novos dados
-  await prisma.card.deleteMany({});
-  await prisma.collection.deleteMany({});
+  // Limpar dados existentes
+  await prisma.section.deleteMany({});
+  await prisma.touristSpot.deleteMany({});
 
-  // Criar coleções de diferentes temáticas
-  const nbaLegends = await prisma.collection.create({
+  // Criar pontos turísticos com suas seções
+  
+  // Cristo Redentor - Rio de Janeiro
+  const cristoRedentor = await prisma.touristSpot.create({
     data: {
-      name: "NBA Legends",
-      description: "Jogadores lendários da história do basquete da NBA",
-      releaseYear: 2023,
+      name: "Cristo Redentor",
+      region: "Sudeste",
+      rating: 4.9,
+      imageUrl: "https://mobilidade.estadao.com.br/wp-content/uploads/2024/11/Imagem-destacada-Mobilidade-2024-11-21T165703.973.jpg.webp",
+      sections: {
+        create: [
+          {
+            title: "História",
+            text: "O Cristo Redentor foi inaugurado em 1931 e é considerado uma das Sete Maravilhas do Mundo Moderno. A estátua art déco de Jesus Cristo foi projetada pelo engenheiro francês Paul Landowski e construída pelo brasileiro Heitor da Silva Costa.",
+            imageUrl: "https://example.com/cristo-historia.jpg"
+          },
+          {
+            title: "Localização",
+            text: "A estátua está localizada no topo do Morro do Corcovado, a 710 metros de altitude, no Parque Nacional da Tijuca, na cidade do Rio de Janeiro.",
+            imageUrl: "https://example.com/cristo-localizacao.jpg"
+          },
+          {
+            title: "Características",
+            text: "O Cristo Redentor possui 30 metros de altura (sem contar os 8 metros do pedestal) e 28 metros de largura. É feito de concreto armado e pedra-sabão.",
+            imageUrl: null
+          }
+        ]
+      }
     },
+    include: {
+      sections: true
+    }
   });
 
-  const rockBands = await prisma.collection.create({
+  // Cataratas do Iguaçu - Paraná
+  const cataratasIguacu = await prisma.touristSpot.create({
     data: {
-      name: "Classic Rock",
-      description: "Bandas clássicas do rock mundial",
-      releaseYear: 2022,
+      name: "Cataratas do Iguaçu",
+      region: "Sul",
+      rating: 4.8,
+      imageUrl: "https://example.com/cataratas-iguacu.jpg",
+      sections: {
+        create: [
+          {
+            title: "Descrição",
+            text: "As Cataratas do Iguaçu são um conjunto de cerca de 275 quedas d'água no Rio Iguaçu, localizada entre o Parque Nacional do Iguaçu (Brasil) e o Parque Nacional Iguazú (Argentina).",
+            imageUrl: "https://example.com/cataratas-descricao.jpg"
+          },
+          {
+            title: "Garganta do Diabo",
+            text: "A maior e mais impressionante das quedas é a Garganta do Diabo, com 82 metros de altura. É possível observá-la tanto do lado brasileiro quanto argentino.",
+            imageUrl: "https://example.com/garganta-diabo.jpg"
+          },
+          {
+            title: "Fauna e Flora",
+            text: "O parque abriga uma rica biodiversidade, incluindo mais de 2000 espécies de plantas, jaguares, pumas, quatis e mais de 400 espécies de aves.",
+            imageUrl: null
+          }
+        ]
+      }
     },
+    include: {
+      sections: true
+    }
   });
 
-  const worldMonuments = await prisma.collection.create({
+  // Pelourinho - Salvador
+  const pelourinho = await prisma.touristSpot.create({
     data: {
-      name: "World Monuments",
-      description: "Monumentos históricos famosos ao redor do mundo",
-      releaseYear: 2021,
+      name: "Pelourinho",
+      region: "Nordeste",
+      rating: 4.7,
+      imageUrl: "https://example.com/pelourinho.jpg",
+      sections: {
+        create: [
+          {
+            title: "História Colonial",
+            text: "O Pelourinho é o centro histórico de Salvador, declarado Patrimônio Mundial pela UNESCO em 1985. Representa o maior conjunto arquitetônico colonial da América Latina.",
+            imageUrl: "https://example.com/pelourinho-historia.jpg"
+          },
+          {
+            title: "Cultura Afro-Brasileira",
+            text: "É considerado o berço da cultura afro-brasileira, com forte influência na música, dança, religião e culinária. Local de nascimento do Olodum e outros grupos culturais.",
+            imageUrl: "https://example.com/pelourinho-cultura.jpg"
+          }
+        ]
+      }
     },
+    include: {
+      sections: true
+    }
   });
 
-  const dinosaurs = await prisma.collection.create({
+  // Lençóis Maranhenses - Maranhão
+  const lencoisMaranhenses = await prisma.touristSpot.create({
     data: {
-      name: "Prehistoric Giants",
-      description: "Dinossauros que habitaram a Terra há milhões de anos",
-      releaseYear: 2023,
+      name: "Lençóis Maranhenses",
+      region: "Nordeste",
+      rating: 4.8,
+      imageUrl: "https://example.com/lencois-maranhenses.jpg",
+      sections: {
+        create: [
+          {
+            title: "Paisagem Única",
+            text: "O Parque Nacional dos Lençóis Maranhenses possui uma área de 155 mil hectares de dunas de areia branca e lagoas de água doce cristalina, formando uma paisagem única no mundo.",
+            imageUrl: "https://example.com/lencois-paisagem.jpg"
+          },
+          {
+            title: "Formação das Lagoas",
+            text: "Entre junho e setembro, as chuvas enchem as depressões entre as dunas, criando milhares de lagoas temporárias de águas cristalinas em tons de azul e verde.",
+            imageUrl: "https://example.com/lencois-lagoas.jpg"
+          },
+          {
+            title: "Melhor Época para Visitar",
+            text: "O período ideal para visita é entre julho e setembro, quando as lagoas estão cheias e o acesso é mais fácil.",
+            imageUrl: null
+          }
+        ]
+      }
     },
+    include: {
+      sections: true
+    }
   });
 
-  const videogameConsoles = await prisma.collection.create({
+  // Fernando de Noronha - Pernambuco
+  const fernandoNoronha = await prisma.touristSpot.create({
     data: {
-      name: "Gaming History",
-      description: "Consoles de videogame que marcaram gerações",
-      releaseYear: 2022,
+      name: "Fernando de Noronha",
+      region: "Nordeste",
+      rating: 4.9,
+      imageUrl: "https://example.com/fernando-noronha.jpg",
+      sections: {
+        create: [
+          {
+            title: "Arquipélago Paradisíaco",
+            text: "Fernando de Noronha é um arquipélago vulcânico composto por 21 ilhas, declarado Patrimônio Mundial da Humanidade pela UNESCO devido à sua importância ecológica.",
+            imageUrl: "https://example.com/noronha-arquipelago.jpg"
+          },
+          {
+            title: "Vida Marinha",
+            text: "As águas cristalinas abrigam uma rica vida marinha, incluindo golfinhos rotadores, tartarugas marinhas, tubarões e mais de 230 espécies de peixes.",
+            imageUrl: "https://example.com/noronha-vida-marinha.jpg"
+          },
+          {
+            title: "Praias Paradisíacas",
+            text: "Possui algumas das praias mais belas do Brasil, como Baía do Sancho, Praia do Leão e Cacimba do Padre, famosas por suas águas cristalinas e paisagens deslumbrantes.",
+            imageUrl: "https://example.com/noronha-praias.jpg"
+          }
+        ]
+      }
     },
+    include: {
+      sections: true
+    }
   });
 
-  console.log("Coleções criadas. Inserindo cards...");
+  // Amazônia - Norte
+  const amazonia = await prisma.touristSpot.create({
+    data: {
+      name: "Floresta Amazônica",
+      region: "Norte",
+      rating: 4.7,
+      imageUrl: "https://example.com/amazonia.jpg",
+      sections: {
+        create: [
+          {
+            title: "Maior Floresta Tropical",
+            text: "A Amazônia é a maior floresta tropical do mundo, cobrindo cerca de 5,5 milhões de km². Possui a maior biodiversidade do planeta, com milhões de espécies de plantas, animais e insetos.",
+            imageUrl: "https://example.com/amazonia-floresta.jpg"
+          },
+          {
+            title: "Rio Amazonas",
+            text: "O Rio Amazonas é o maior rio do mundo em volume de água, percorrendo mais de 6.400 km desde sua nascente nos Andes peruanos até sua foz no oceano Atlântico.",
+            imageUrl: "https://example.com/rio-amazonas.jpg"
+          },
+          {
+            title: "Comunidades Tradicionais",
+            text: "A região abriga diversas comunidades indígenas e ribeirinhas que mantêm tradições milenares e conhecimentos únicos sobre a floresta e seus recursos.",
+            imageUrl: null
+          }
+        ]
+      }
+    },
+    include: {
+      sections: true
+    }
+  });
 
-  // Cards para NBA Legends
-  const nbaCards = await Promise.all([
-    prisma.card.create({
-      data: {
-        name: "Michael Jordan",
-        rarity: "Ultra Rare",
-        attackPoints: 9800,
-        defensePoints: 9200,
-        imageUrl: "https://example.com/jordan.jpg",
-        collectionId: nbaLegends.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "LeBron James",
-        rarity: "Ultra Rare",
-        attackPoints: 9700,
-        defensePoints: 9500,
-        imageUrl: "https://example.com/lebron.jpg",
-        collectionId: nbaLegends.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "Kobe Bryant",
-        rarity: "Ultra Rare",
-        attackPoints: 9600,
-        defensePoints: 9300,
-        imageUrl: "https://example.com/kobe.jpg",
-        collectionId: nbaLegends.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "Magic Johnson",
-        rarity: "Super Rare",
-        attackPoints: 9400,
-        defensePoints: 8700,
-        imageUrl: "https://example.com/magic.jpg",
-        collectionId: nbaLegends.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "Larry Bird",
-        rarity: "Super Rare",
-        attackPoints: 9300,
-        defensePoints: 8800,
-        imageUrl: "https://example.com/bird.jpg",
-        collectionId: nbaLegends.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "Shaquille O'Neal",
-        rarity: "Super Rare",
-        attackPoints: 9500,
-        defensePoints: 9400,
-        imageUrl: "https://example.com/shaq.jpg",
-        collectionId: nbaLegends.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "Stephen Curry",
-        rarity: "Rare",
-        attackPoints: 9200,
-        defensePoints: 8500,
-        imageUrl: "https://example.com/curry.jpg",
-        collectionId: nbaLegends.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "Kevin Durant",
-        rarity: "Rare",
-        attackPoints: 9300,
-        defensePoints: 8600,
-        imageUrl: "https://example.com/durant.jpg",
-        collectionId: nbaLegends.id,
-      },
-    }),
-  ]);
-
-  // Cards para Classic Rock
-  const rockCards = await Promise.all([
-    prisma.card.create({
-      data: {
-        name: "Queen",
-        rarity: "Ultra Rare",
-        attackPoints: 9600,
-        defensePoints: 9200,
-        imageUrl: "https://example.com/queen.jpg",
-        collectionId: rockBands.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "Led Zeppelin",
-        rarity: "Ultra Rare",
-        attackPoints: 9700,
-        defensePoints: 9100,
-        imageUrl: "https://example.com/ledzeppelin.jpg",
-        collectionId: rockBands.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "Pink Floyd",
-        rarity: "Ultra Rare",
-        attackPoints: 9500,
-        defensePoints: 9300,
-        imageUrl: "https://example.com/pinkfloyd.jpg",
-        collectionId: rockBands.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "The Beatles",
-        rarity: "Ultra Rare",
-        attackPoints: 9800,
-        defensePoints: 9400,
-        imageUrl: "https://example.com/beatles.jpg",
-        collectionId: rockBands.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "AC/DC",
-        rarity: "Super Rare",
-        attackPoints: 9300,
-        defensePoints: 8800,
-        imageUrl: "https://example.com/acdc.jpg",
-        collectionId: rockBands.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "The Rolling Stones",
-        rarity: "Super Rare",
-        attackPoints: 9400,
-        defensePoints: 9000,
-        imageUrl: "https://example.com/rollingstones.jpg",
-        collectionId: rockBands.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "Guns N' Roses",
-        rarity: "Rare",
-        attackPoints: 9100,
-        defensePoints: 8700,
-        imageUrl: "https://example.com/gunsnroses.jpg",
-        collectionId: rockBands.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "Metallica",
-        rarity: "Rare",
-        attackPoints: 9200,
-        defensePoints: 8900,
-        imageUrl: "https://example.com/metallica.jpg",
-        collectionId: rockBands.id,
-      },
-    }),
-  ]);
-
-  // Cards para World Monuments
-  const monumentCards = await Promise.all([
-    prisma.card.create({
-      data: {
-        name: "Eiffel Tower",
-        rarity: "Ultra Rare",
-        attackPoints: 8800,
-        defensePoints: 9500,
-        imageUrl: "https://example.com/eiffel.jpg",
-        collectionId: worldMonuments.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "Great Wall of China",
-        rarity: "Ultra Rare",
-        attackPoints: 8500,
-        defensePoints: 9800,
-        imageUrl: "https://example.com/greatwall.jpg",
-        collectionId: worldMonuments.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "Taj Mahal",
-        rarity: "Ultra Rare",
-        attackPoints: 8700,
-        defensePoints: 9600,
-        imageUrl: "https://example.com/tajmahal.jpg",
-        collectionId: worldMonuments.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "Pyramids of Giza",
-        rarity: "Ultra Rare",
-        attackPoints: 8600,
-        defensePoints: 9900,
-        imageUrl: "https://example.com/pyramids.jpg",
-        collectionId: worldMonuments.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "Colosseum",
-        rarity: "Super Rare",
-        attackPoints: 8400,
-        defensePoints: 9300,
-        imageUrl: "https://example.com/colosseum.jpg",
-        collectionId: worldMonuments.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "Statue of Liberty",
-        rarity: "Super Rare",
-        attackPoints: 8300,
-        defensePoints: 9200,
-        imageUrl: "https://example.com/liberty.jpg",
-        collectionId: worldMonuments.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "Stonehenge",
-        rarity: "Rare",
-        attackPoints: 8000,
-        defensePoints: 9400,
-        imageUrl: "https://example.com/stonehenge.jpg",
-        collectionId: worldMonuments.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "Machu Picchu",
-        rarity: "Rare",
-        attackPoints: 8200,
-        defensePoints: 9100,
-        imageUrl: "https://example.com/machupicchu.jpg",
-        collectionId: worldMonuments.id,
-      },
-    }),
-  ]);
-
-  // Cards para Prehistoric Giants
-  const dinosaurCards = await Promise.all([
-    prisma.card.create({
-      data: {
-        name: "Tyrannosaurus Rex",
-        rarity: "Ultra Rare",
-        attackPoints: 9900,
-        defensePoints: 8800,
-        imageUrl: "https://example.com/trex.jpg",
-        collectionId: dinosaurs.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "Velociraptor",
-        rarity: "Super Rare",
-        attackPoints: 9400,
-        defensePoints: 8300,
-        imageUrl: "https://example.com/velociraptor.jpg",
-        collectionId: dinosaurs.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "Brachiosaurus",
-        rarity: "Super Rare",
-        attackPoints: 8500,
-        defensePoints: 9700,
-        imageUrl: "https://example.com/brachiosaurus.jpg",
-        collectionId: dinosaurs.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "Triceratops",
-        rarity: "Super Rare",
-        attackPoints: 8700,
-        defensePoints: 9600,
-        imageUrl: "https://example.com/triceratops.jpg",
-        collectionId: dinosaurs.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "Stegosaurus",
-        rarity: "Rare",
-        attackPoints: 8400,
-        defensePoints: 9500,
-        imageUrl: "https://example.com/stegosaurus.jpg",
-        collectionId: dinosaurs.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "Spinosaurus",
-        rarity: "Ultra Rare",
-        attackPoints: 9800,
-        defensePoints: 8700,
-        imageUrl: "https://example.com/spinosaurus.jpg",
-        collectionId: dinosaurs.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "Ankylosaurus",
-        rarity: "Rare",
-        attackPoints: 8200,
-        defensePoints: 9800,
-        imageUrl: "https://example.com/ankylosaurus.jpg",
-        collectionId: dinosaurs.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "Pteranodon",
-        rarity: "Rare",
-        attackPoints: 9100,
-        defensePoints: 8000,
-        imageUrl: "https://example.com/pteranodon.jpg",
-        collectionId: dinosaurs.id,
-      },
-    }),
-  ]);
-
-  // Cards para Gaming History
-  const consoleCards = await Promise.all([
-    prisma.card.create({
-      data: {
-        name: "Atari 2600",
-        rarity: "Ultra Rare",
-        attackPoints: 7500,
-        defensePoints: 8000,
-        imageUrl: "https://example.com/atari.jpg",
-        collectionId: videogameConsoles.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "Nintendo NES",
-        rarity: "Ultra Rare",
-        attackPoints: 8200,
-        defensePoints: 8300,
-        imageUrl: "https://example.com/nes.jpg",
-        collectionId: videogameConsoles.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "Sega Genesis",
-        rarity: "Super Rare",
-        attackPoints: 8100,
-        defensePoints: 8200,
-        imageUrl: "https://example.com/genesis.jpg",
-        collectionId: videogameConsoles.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "Super Nintendo",
-        rarity: "Super Rare",
-        attackPoints: 8300,
-        defensePoints: 8400,
-        imageUrl: "https://example.com/snes.jpg",
-        collectionId: videogameConsoles.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "PlayStation 1",
-        rarity: "Rare",
-        attackPoints: 8400,
-        defensePoints: 8500,
-        imageUrl: "https://example.com/ps1.jpg",
-        collectionId: videogameConsoles.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "Nintendo 64",
-        rarity: "Rare",
-        attackPoints: 8400,
-        defensePoints: 8300,
-        imageUrl: "https://example.com/n64.jpg",
-        collectionId: videogameConsoles.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "Xbox",
-        rarity: "Common",
-        attackPoints: 8600,
-        defensePoints: 8700,
-        imageUrl: "https://example.com/xbox.jpg",
-        collectionId: videogameConsoles.id,
-      },
-    }),
-    prisma.card.create({
-      data: {
-        name: "PlayStation 2",
-        rarity: "Common",
-        attackPoints: 8700,
-        defensePoints: 8800,
-        imageUrl: "https://example.com/ps2.jpg",
-        collectionId: videogameConsoles.id,
-      },
-    }),
-  ]);
+  console.log(`Cristo Redentor criado com ${cristoRedentor.sections.length} seções`);
+  console.log(`Cataratas do Iguaçu criadas com ${cataratasIguacu.sections.length} seções`);
+  console.log(`Pelourinho criado com ${pelourinho.sections.length} seções`);
+  console.log(`Lençóis Maranhenses criados com ${lencoisMaranhenses.sections.length} seções`);
+  console.log(`Fernando de Noronha criado com ${fernandoNoronha.sections.length} seções`);
+  console.log(`Amazônia criada com ${amazonia.sections.length} seções`);
 
   console.log(
-    `Seed concluído! Criadas ${await prisma.collection.count()} coleções e ${await prisma.card.count()} cards.`
+    `Seed concluído! Criados ${await prisma.touristSpot.count()} pontos turísticos e ${await prisma.section.count()} seções.`
   );
 }
 
