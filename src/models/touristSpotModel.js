@@ -5,7 +5,7 @@ class TouristSpotModel {
   async findAll() {
     const spots = await prisma.touristSpot.findMany({
       orderBy: {
-        createdAt: "desc",
+        createdAt: "asc",
       },
       include: {
         sections: true, // já traz junto as seções (Visão Geral, História, etc.)
